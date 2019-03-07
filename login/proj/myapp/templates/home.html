@@ -1,0 +1,61 @@
+{%load socialaccount %} 
+<!--로드기능을 사용해야함-->
+{% providers_media_js %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <title>간단한 지도 표시하기</title>
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=20yrtiv6a6"></script>
+</head>
+<body>
+
+<h1> hello world! </h1>
+
+<a href="/accounts/signup">회원가입</a> <br>
+<!--자동적으로 사이트가 만들어짐-->
+
+{%if user.is_authenticated %}
+<!--로그인이 되어 있다면 if문을 실행해라-->
+<a href="/accounts/logout">로그아웃</a> <br>
+{{user.username}} 님이 로그인 중
+<!--해당 유저가 로그인중임을 표시-->
+
+{% else %}
+<a href = "{% provider_login_url 'google' %}"> 구글 로그인 </a> <br>
+로그인해야함
+<!--로그인해야한다고 알려줌 provider_login_url을 위해서 socialaccount를 가져옴-->
+{% endif %}
+<br><br>
+
+<img src="{{blog.image.url}}" width = 400>
+<br>
+{{blog.text}}
+
+
+{% comment %} <div id="map" style="width:50%;height:400px;"></div>
+<!--지도 부분-->
+<br>
+<div id="map2" style="width:50%;height:400px;"></div>
+
+<script>
+var mapOptions = {
+    center: new naver.maps.LatLng(37.3595704, 127.105399),
+    zoom: 12  //위도 경도 줌
+};
+
+var mapOptions2 = {
+    center: new naver.maps.LatLng(37.3595704, 127.105399),
+    zoom: 2  //위도 경도 줌
+};
+
+var map = new naver.maps.Map('map', mapOptions);
+var map = new naver.maps.Map('map2', mapOptions2);
+</script> {% endcomment %}
+
+</body>
+</html>
+
